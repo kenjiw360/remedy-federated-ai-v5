@@ -1,0 +1,17 @@
+{
+  "name": "rmdy-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx electron ."
+  },
+  "author": "Madum Dev",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.1.0"
+  },
+  "dependencies": {
+    "python-shell": "^5.0.0"
+  }
+}

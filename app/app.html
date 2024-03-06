@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>RMDY</title>
+		<style>
+			@font-face{
+				font-family: Montserrat;
+				src: url(font.ttf);
+			}
+
+			@font-face{
+				font-family: MontserratItalic;
+				src: url(italic-font.ttf);
+			}
+
+			html, body{
+				background: #232323;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			*{
+				font-family: Montserrat;
+				font-weight: 400;
+				color: #CCCCFF;
+			}
+
+			.header{
+				height: 32px;
+				display: flex;
+				padding: 40px;
+				justify-content: row;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.header h1{
+				margin: none;
+			}
+
+			.file-upload{
+				background: #484848;
+				border-radius: 10px;
+				height: calc(100vh - 152px);
+				width: calc(100vw - 80px);
+				transition: 0.2s;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: hover;
+				position: relative;
+				overflow: scroll;
+			}
+
+			.file-upload:hover{
+				background: #5d5d5d;
+			}
+
+			.file-upload:hover > .loading-circle::after, .file-upload:hover > .loading-circle::before{
+				background: #5d5d5d;
+			}
+
+			.file-upload span#uploadfolder{
+				font-family: MontserratItalic;
+				color: rgb(100,100,100);
+			}
+
+			.file-upload input{
+				height: 100%;
+				width: 100%;
+				display: block;
+				position: absolute;
+				cursor: pointer;
+				opacity: 0;
+			}
+
+			.loading-circle{
+				border-radius: 50%;
+				height: 50px;
+				width: 50px;
+				background: white;
+				box-sizing: content-box;
+				animation: 1s spinner infinite;
+				pointer-events: none;
+				display: none;
+				opacity: 0;
+				transition: 0.2s;
+			}
+
+			.loading-circle::after{
+				background: #484848;
+				height: 25px;
+				width: 25px;
+				content: " ";
+				display: block;
+				right: 0;
+				top: 0;
+				transition: 0.2s;
+			}
+
+			.loading-circle::before{
+				border-radius: 50%;
+				height: 42px;
+				width: 42px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				content: " ";
+				display: block;
+				background: #484848;
+				transition: 0.2s;
+			}
+
+			p{
+				margin: 10 20px;
+				padding: 0;
+			}
+
+			@keyframes spinner{
+				0%{
+					transform: rotateZ(45deg);
+				}
+				100%{
+					transform: rotateZ(405deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<h1>R M D Y</h1>
+		</div>
+		<div class="file-upload">
+			<div class="loading-circle"></div>
+			<span id="uploadfolder">Upload Folder Here</span>
+			<input type="file" webkitdirectory directory>
+		</div>
+		<script>
+			var dragDropElem = document.querySelector("input")
+			dragDropElem.addEventListener("change", function (e){
+				dragDropElem.style.pointerEvents = "none";
+				document.querySelector("span#uploadfolder").style.display = "none";
+				document.querySelector("div.loading-circle").style.display = "block";
+				document.querySelector("div.loading-circle").style.opacity = "1";
+				window.electronAPI.uploadFolder(dragDropElem.files[0].path.replace(dragDropElem.files[0].webkitRelativePath.replaceAll("\\","/").split("/").filter((item, index) => index != 0).join("/"),""));
+				window.electronAPI.onPythonLog((log) => {
+					document.querySelector("div.loading-circle").style.display = "none";
+					document.querySelector("div.loading-circle").style.opacity = "0";
+					var span = document.createElement("p");
+					span.innerText = log;
+					document.querySelector(".file-upload").style.display = "block";
+					document.querySelector(".file-upload").append(span);
+					document.querySelector(".file-upload").scrollTop = document.querySelector(".file-upload").scrollHeight;
+				})
+			})
+		</script>
+	</body>
+</html>
