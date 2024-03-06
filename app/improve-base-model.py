@@ -23,12 +23,10 @@ print(image_count)
 
 categories = list(data_dir.glob('*/'))
 
-dataset_dict = {}
 os.mkdir('resized')
 for (category_index, category) in enumerate(categories):
 	os.mkdir(pathlib.Path('resized') / category.relative_to(data_dir))
 	category_dir = list(category.glob('*.jpg'))
-	dataset_dict[category.name] = []
 	for (image_index, image) in enumerate(category_dir):
 		with Image.open(image) as img:
 			print(f"Working on {image.name} in {category.name} (Image {image_index+1}/{len(category_dir)} of Category {category_index+1}/{len(categories)})")
@@ -61,11 +59,6 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
 
 class_names = train_ds.class_names
 print(class_names)
-
-for image_batch, labels_batch in train_ds:
-	print(image_batch.shape)
-	print(labels_batch.shape)
-	break
 
 AUTOTUNE = tf.data.AUTOTUNE
 

@@ -15,7 +15,7 @@ function createWindow(){
 		const python = new PythonShell('improve-base-model.py');
 		python.send(folderDir);
 		python.on('message', message => window.webContents.send('Python Log', message));
-		python.end((err, code, signal) => console.log("Finished"));
+		python.end((err, code, signal) => console.log("Finished", err, code, signal));
 	});
 
 	window.loadFile("app.html");
