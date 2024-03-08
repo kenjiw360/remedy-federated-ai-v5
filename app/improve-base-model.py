@@ -8,11 +8,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
-print("Fetching Base Model From Server...")
-url = 'https://0245-71-92-86-252.ngrok-free.app/base.keras'
-r = requests.get(url)
-open('base.keras', 'wb').write(r.content)
-print("Finished Fetching!")
+# print("Fetching Base Model From Server...")
+# url = 'https://a4b2-71-92-86-252.ngrok-free.app/base.keras'
+# r = requests.get(url)
+# open('base.keras', 'wb').write(r.content)
+# print("Finished Fetching!")
 
 data_dir = pathlib.Path(input("Image Count: "))
 image_size = (256, 256)
@@ -23,16 +23,16 @@ print(image_count)
 
 categories = list(data_dir.glob('*/'))
 
-os.mkdir('resized')
-for (category_index, category) in enumerate(categories):
-	os.mkdir(pathlib.Path('resized') / category.relative_to(data_dir))
-	category_dir = list(category.glob('*.jpg'))
-	for (image_index, image) in enumerate(category_dir):
-		with Image.open(image) as img:
-			print(f"Working on {image.name} in {category.name} (Image {image_index+1}/{len(category_dir)} of Category {category_index+1}/{len(categories)})")
-			resized_img = ImageOps.fit(img, image_size)
-			resized_img.save(pathlib.Path('resized') / image.relative_to(data_dir))
-	print("Finished!")
+# os.mkdir('resized')
+# for (category_index, category) in enumerate(categories):
+# 	os.mkdir(pathlib.Path('resized') / category.relative_to(data_dir))
+# 	category_dir = list(category.glob('*.jpg'))
+# 	for (image_index, image) in enumerate(category_dir):
+# 		with Image.open(image) as img:
+# 			print(f"Working on {image.name} in {category.name} (Image {image_index+1}/{len(category_dir)} of Category {category_index+1}/{len(categories)})")
+# 			resized_img = ImageOps.fit(img, image_size)
+# 			resized_img.save(pathlib.Path('resized') / image.relative_to(data_dir))
+# 	print("Finished!")
 
 data_dir = data_dir.parent / 'resized'
 
@@ -81,4 +81,4 @@ history = model.fit(
 	epochs=epochs
 )
 
-model.save('addition.keras')
+model.save('additiontest.keras')

@@ -1,0 +1,7 @@
+<svg width="210" height="181" viewBox="0 0 210 181" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M155 4H55L5 90.64L55 177.28H155L205 90.64L155 4Z" fill="#232323" stroke="#CCCCFF" stroke-width="7" stroke-miterlimit="10"/>
+<path d="M55 4V177.28" stroke="#CCCCFF" stroke-width="7" stroke-miterlimit="10"/>
+<path d="M5 90.64H205" stroke="#CCCCFF" stroke-width="7" stroke-miterlimit="10"/>
+<path d="M55 4L205 90.64" stroke="#CCCCFF" stroke-width="7" stroke-miterlimit="10"/>
+<path d="M55 90.64L155 177.28" stroke="#CCCCFF" stroke-width="7" stroke-miterlimit="10"/>
+</svg>
